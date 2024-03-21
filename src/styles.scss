@@ -14,6 +14,62 @@
   }
 }
 
+.my-sweet-popup {
+  position: fixed;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  z-index: 10000;
+
+  &--bottom-center {
+      bottom: 1rem;
+      left: 50%;
+      transform: translate(-50%, 0);
+  }
+
+  &--bottom-left {
+      bottom: 1rem;
+      left: 1rem;
+  }
+
+  &--bottom-right {
+      bottom: 1rem;
+      right: 1rem;
+  }
+
+  &--top-center {
+      top: 1rem;
+      left: 50%;
+      transform: translate(-50%, 0);
+  }
+
+  &--top-left {
+      top: 1rem;
+      left: 1rem;
+  }
+
+  &--top-right {
+      top: 1rem;
+      right: 1rem;
+  }
+
+  &--sucess {
+      background: #339933DB;
+  }
+
+  &--warning {
+      background: #d2b202DB;
+  }
+
+  &--danger {
+      background: #ff0000DB;
+  }
+
+  .close {
+      cursor: pointer;
+  }
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;

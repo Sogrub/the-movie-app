@@ -6,7 +6,7 @@ import { IDetailMovie } from '../../shared/services/movie.models';
 import { FormatDatePipe } from '../../shared/pipes/format-date.pipe';
 import { PersonalIconsComponent } from '../../shared/components/personal-icons/personal-icons.component';
 import { TimeConverterPipe } from '../../shared/pipes/time-converter.pipe';
-import Swal from 'sweetalert2';
+import { MySweetPopupService } from '../../shared/services/my-sweet-popup/my-sweet-popup.service';
 
 @Component({
   selector: 'app-details',
@@ -23,6 +23,7 @@ export class DetailsComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object, 
     private movieService: MovieService,
+    private mySweetPopupService: MySweetPopupService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -60,22 +61,20 @@ export class DetailsComponent implements OnInit {
   addFavorite() {
     this.movieService.editFavorite(this.movie!.id).subscribe({
       next: () => {
-        Swal.fire({
-          icon: 'success',
-          position: 'top-right',
-          title: 'Favorito agregado exitosamente',
-          showConfirmButton: false,
+        this.mySweetPopupService.sweetPopup({
+          icon: 'sucess',
+          position: 'top-center',
+          text: 'Favorito agregado exitosamente',
           timer: 2000,
         })
         this.favoriteMovies= [];
         this.getFavoritesMovie();
       },
       error: (err) => {
-        Swal.fire({
-          icon: 'error',
-          position: 'top-right',
-          title: 'Favorito no agregado exitosamente',
-          showConfirmButton: false,
+        this.mySweetPopupService.sweetPopup({
+          icon: 'danger',
+          position: 'top-center',
+          text: 'Favorito no agregado exitosamente',
           timer: 2000,
         })
       }
@@ -85,22 +84,20 @@ export class DetailsComponent implements OnInit {
   removeFavorite() {
     this.movieService.editFavorite(this.movie!.id, false).subscribe({
       next: () => {
-        Swal.fire({
-          icon: 'success',
-          position: 'top-right',
-          title: 'Favorito eliminado exitosamente',
-          showConfirmButton: false,
+        this.mySweetPopupService.sweetPopup({
+          icon: 'sucess',
+          position: 'top-center',
+          text: 'Favorito eliminado exitosamente',
           timer: 2000,
         })
         this.favoriteMovies= [];
         this.getFavoritesMovie();
       },
       error: (err) => {
-        Swal.fire({
-          icon: 'error',
-          position: 'top-right',
-          title: 'Favorito no elimnado exitosamente',
-          showConfirmButton: false,
+        this.mySweetPopupService.sweetPopup({
+          icon: 'sucess',
+          position: 'top-center',
+          text: 'Favorito no eliminado exitosamente',
           timer: 2000,
         })
       }
