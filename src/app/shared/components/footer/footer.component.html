@@ -1,0 +1,11 @@
+<footer class="bg-dark-green dark:bg-light text-light dark:text-dark-green py-4">
+  <section class="flex flex-col items-center w-full">
+    <h1 class="text-center font-semibold text-xl mb-2">Agradecimientos Especiales:</h1>
+    @for (source of sources; track $index) {
+      <h3 class="text-center">- {{ source.title }} <a [href]="source.url" target="_blank">({{ source.url }})</a></h3>
+    }
+  </section>
+  <section class="flex justify-center w-full mt-4">
+    <h1 class="text-center font-semibold text-xl">© 2024. Casi todos los derechos reservados</h1>
+  </section>
+</footer>

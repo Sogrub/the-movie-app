@@ -1,0 +1,28 @@
+<header #headerComponent class="sticky top-0 left-0 flex flex-col lg:flex-row justify-around lg:items-center max-w-6xl py-4 px-2 mx-auto lg:rounded-full duration-500 z-50">
+  <section class="flex items-center justify-between gap-2 cursor-pointer">
+    <figure class="rounded-full text-4xl p-2 overflow-hidden">
+      <personal-icons iconName="ghost" />
+    </figure>
+    <h1 class="text-xl font-black">The Movie</h1>
+
+    <span (click)="nav.classList.toggle('h-auto')" class="flex lg:hidden text-4xl">
+      <personal-icons iconName="category" />
+    </span>
+  </section>
+
+  <nav #nav class="flex flex-col lg:flex-row items-center gap-2 overflow-hidden h-0 lg:h-auto">
+    <ul class="flex flex-col lg:flex-row lg:gap-2 w-full text-base">
+      @for(option of OPTIONS; track $index) {
+        <li class="text-center p-2 cursor-pointer hover:underline font-semibold">
+          <a [routerLink]="option.url">{{ option.title }}</a>
+        </li>
+      }
+    </ul>
+    <button class="text-xl font-semibold cursor-pointer" routerLink="/buscar">
+      <personal-icons iconName="search" /> 
+    </button>
+    <button class="text-3xl cursor-pointer" (click)="changeTheme()">
+      <personal-icons [iconName]="theme" /> 
+    </button>
+  </nav>
+</header>

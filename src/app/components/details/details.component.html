@@ -1,0 +1,77 @@
+<main class="flex flex-col gap-4 w-full min-h-fit max-w-[1280px] mx-auto py-4 px-8">
+  @if (movie) {
+    <section class="relative flex flex-col lg:flex-row gap-4">
+      <figure class="w-80">
+        <img class="w-full h-full object-cover object-center" [src]="'https://media.themoviedb.org/t/p/w220_and_h330_face//' + movie.poster_path" [alt]="movie.title">
+      </figure>
+      <div class="flex flex-1 flex-col gap-4">
+        <h1 class="text-2xl"><span class="text-4xl font-semibold">{{ movie.title }}</span> ({{ movie.original_title }})</h1>
+        <p>{{ movie.overview }}</p>
+        <article>
+          <h3 class="text-lg font-semibold">Fecha de estreno</h3>
+          <p>{{ movie.release_date | formatDate }}</p>
+        </article>
+        <article>
+          <h3 class="text-lg font-semibold">Tiempo</h3>
+          <p>{{ movie.runtime | timeConverter }}</p>
+        </article>
+        <article>
+          <h3 class="text-lg font-semibold">Generos</h3>
+          <p>
+            @for (genre of movie.genres; track $index) {
+              {{ genre.name }},
+            }
+          </p>
+        </article>
+        <article>
+          <h3 class="text-lg font-semibold">Paises Involucrados</h3>
+          <p>
+            @for (country of movie.production_countries; track $index) {
+              {{ country.name }} ({{ country.iso_3166_1 }}),
+            }
+          </p>
+        </article>
+        <article>
+          <h3 class="text-lg font-semibold">Compañias productoras</h3>
+          <p>
+            @for (company of movie.production_companies; track $index) {
+              {{ company.name }},
+            }
+          </p>
+        </article>
+      </div>
+      @if (!favoriteMovies.includes(movie.id)) {
+        <button
+          (click)="addFavorite()" 
+          class="absolute bottom-[calc(100% - 2rem)] lg:bottom-2 right-2 p-2 text-5xl bg-dark-green dark:bg-light text-light dark:text-dark-green rounded-full transition-all">
+          <personal-icons iconName="heart" />
+        </button>
+      } @else {
+        <button
+          (click)="removeFavorite()" 
+          class="absolute bottom-[calc(100% - 2rem)] lg:bottom-2 right-2 p-2 text-5xl bg-dark-green dark:bg-light text-light dark:text-dark-green rounded-full transition-all">
+          <personal-icons iconName="x" />
+        </button>
+      }
+    </section>
+    <section class="flex flex-col gap-2">
+      <h1 class="text-4xl font-semibold text-center uppercase">Información Adicional</h1>
+      <div class="flex flex-col lg:flex-row justify-between">
+        <span class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg shadow">
+          <h1 class="text-4xl text-background font-bold">{{ movie.budget | currency }}</h1>
+          <h3 class="text-lg">Presupuestados</h3>
+        </span>
+        <span class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg shadow">
+          <h1 class="text-4xl text-background font-bold">{{ movie.revenue | currency }}</h1>
+          <h3 class="text-lg">Ingresos generados</h3>
+        </span>
+        <span class="flex flex-col items-center justify-center gap-2 p-4 rounded-lg shadow">
+          <h1 class="text-4xl text-background font-bold">{{ (movie.vote_average / 100) | percent:'1.1-2' }}</h1>
+          <h3 class="text-lg">Calificación de los usuarios</h3>
+        </span>
+      </div>
+    </section>
+  } @else {
+    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+  }
+</main>
